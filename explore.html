@@ -103,13 +103,13 @@
             border-radius: 3px;
         }
         #restaurants {
-            background: linear-gradient(to right, #8B0000, #FF6347);
+            background: linear-gradient(to right, #D80000,#FF8C8C);
         }
         #sightseeing {
-            background: linear-gradient(to right, #006400, #90EE90);
+            background: linear-gradient(to right, #45B3E0, #C9E9F6);
         }
         #explore {
-            background: linear-gradient(to right, #00008B, #87CEEB);
+           background: linear-gradient(to right, #006400, #90EE90);
         }
         #error-message {
             color: #D8000C;
@@ -135,53 +135,19 @@
         const places = {
             'France': {
                 restaurants: [
-                    {name: 'Le Chateaubriand, Paris', image: '/api/placeholder/100/100'},
-                    {name: 'L\'Arpège, Paris', image: '/api/placeholder/100/100'},
-                    {name: 'La Vague d\'Or, Saint-Tropez', image: '/api/placeholder/100/100'}
+                    {name: 'Le Chateaubriand', image: 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Le_Chateaubriand.jpg'},
+                    {name: 'L\'Arpège', image: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Arp%C3%A8ge.jpg'},
+                    {name: 'La Vague d\'Or', image: 'https://theworldkeys.com/wp-content/uploads/2022/06/La-Vague-dOr-restaurant-Saint-Tropez_theworldkeys_6.webp'}
                 ],
                 sightseeing: [
-                    {name: 'Eiffel Tower', image: '/api/placeholder/100/100'},
-                    {name: 'Louvre Museum', image: '/api/placeholder/100/100'},
-                    {name: 'Palace of Versailles', image: '/api/placeholder/100/100'}
+                    {name: 'Eiffel Tower', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg/800px-Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg'},
+                    {name: 'Louvre Museum', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Louvre_Museum_Wikimedia_Commons.jpg/1920px-Louvre_Museum_Wikimedia_Commons.jpg'},
+                    {name: 'Palace of Versailles', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Versailles-Chateau-Jardins02.jpg/1280px-Versailles-Chateau-Jardins02.jpg'}
                 ],
                 explore: [
-                    {name: 'Provence lavender fields', image: '/api/placeholder/100/100'},
-                    {name: 'French Riviera', image: '/api/placeholder/100/100'},
-                    {name: 'Mont Saint-Michel', image: '/api/placeholder/100/100'}
-                ]
-            },
-            'Japan': {
-                restaurants: [
-                    {name: 'Sukiyabashi Jiro, Tokyo', image: '/api/placeholder/100/100'},
-                    {name: 'Den, Tokyo', image: '/api/placeholder/100/100'},
-                    {name: 'Kikunoi, Kyoto', image: '/api/placeholder/100/100'}
-                ],
-                sightseeing: [
-                    {name: 'Mount Fuji', image: '/api/placeholder/100/100'},
-                    {name: 'Fushimi Inari Shrine, Kyoto', image: '/api/placeholder/100/100'},
-                    {name: 'Tokyo Skytree', image: '/api/placeholder/100/100'}
-                ],
-                explore: [
-                    {name: 'Arashiyama Bamboo Grove', image: '/api/placeholder/100/100'},
-                    {name: 'Okinawa beaches', image: '/api/placeholder/100/100'},
-                    {name: 'Hokkaido winter landscapes', image: '/api/placeholder/100/100'}
-                ]
-            },
-            'Italy': {
-                restaurants: [
-                    {name: 'Osteria Francescana, Modena', image: '/api/placeholder/100/100'},
-                    {name: 'Le Calandre, Padua', image: '/api/placeholder/100/100'},
-                    {name: 'Piazza Duomo, Alba', image: '/api/placeholder/100/100'}
-                ],
-                sightseeing: [
-                    {name: 'Colosseum, Rome', image: '/api/placeholder/100/100'},
-                    {name: 'Venice canals', image: '/api/placeholder/100/100'},
-                    {name: 'Leaning Tower of Pisa', image: '/api/placeholder/100/100'}
-                ],
-                explore: [
-                    {name: 'Tuscan countryside', image: '/api/placeholder/100/100'},
-                    {name: 'Amalfi Coast', image: '/api/placeholder/100/100'},
-                    {name: 'Cinque Terre', image: '/api/placeholder/100/100'}
+                    {name: 'Provence lavender fields', image: 'https://images.pexels.com/photos/1166209/pexels-photo-1166209.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'},
+                    {name: 'French Riviera', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/%C3%88ze_und_Cap_Ferrat-Grande_Corniche.jpg/1920px-%C3%88ze_und_Cap_Ferrat-Grande_Corniche.jpg'},
+                    {name: 'Mont Saint-Michel', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Mont-Saint-Michel_vu_du_ciel.jpg/1920px-Mont-Saint-Michel_vu_du_ciel.jpg'}
                 ]
             }
         };
