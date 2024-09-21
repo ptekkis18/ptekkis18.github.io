@@ -112,12 +112,12 @@
     </footer>
 
     <script>
-        // Function to load content dynamically
+        // Load content
         function loadContent(hash) {
             const contentDiv = document.getElementById('content');
             
             if (hash === '#Explore') {
-                // Load the Explore content dynamically
+                // Load the Explore content
                 fetch('explore.html')
                     .then(response => response.text())
                     .then(data => {
@@ -140,9 +140,9 @@
             }
         }
 
-        // Function to fetch news (for the home section)
+        // Function to fetch news
         function fetchNews() {
-            const apiKey = ''; // Replace with your News API key
+            const apiKey = '';
             const url = `https://newsapi.org/v2/top-headlines?category=technology&apiKey=${apiKey}`;
             
             fetch(url)
