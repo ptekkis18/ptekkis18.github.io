@@ -50,6 +50,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             text-align: center;
+            
         }
         .btn {
             background-color: #007bff;
@@ -87,6 +88,126 @@
             bottom: 0;
             box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
         }
+        input{
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 5%;
+        }
+        input:focus{border-color: black; outline: black; border-radius: 5px;}
+        #btnFindPlaces{
+            background-color: #28a745;
+            color: white;
+            font-size: 1.1em;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 40px; 
+            margin-bottom: 4%;
+           
+            
+        }
+        #btnFindPlaces:hover{
+            background-color: #218838;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .autocomplete {
+            position: relative;
+            display: inline-block;
+            width: 70%;
+            vertical-align: middle;
+            border-radius: 10px;
+        
+        }
+        .autocomplete-items {
+            margin-top: -4%;
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            border-bottom: none;
+            border-top: none;
+            border-radius: 10px;
+            z-index: 99;
+            top: 100%;
+            left: 0;
+            right: 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .autocomplete-items div {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #fff;
+            border-bottom: 1px solid #d4d4d4;
+            border-radius: 10px;
+        }
+        .autocomplete-items div:hover {
+            background-color: #e9e9e9;
+        }
+        .autocomplete-active {
+            background-color: black !important;
+            color: #ffffff;
+        }
+       
+        @media(max-width: 900px){
+            .autocomplete{width: 80%; margin-bottom: 5%;}
+            btnFindPlaces{display: block; margin-left: 0; width: 100%;}
+        }
+
+        #restaurants {
+            padding-top: 0.1%;
+            background: linear-gradient(to right, #D80000,#ff8c8c);
+            border-radius: 5px;
+            margin-bottom: 5%;
+        }
+        #sightseeing {
+            padding-top: 0.1%;
+            background: linear-gradient(to right, #45b3e0, #c9e9f6);
+            border-radius: 5px;
+            margin-bottom: 5%;
+        }
+        #explore {
+            padding-top: 0.1%;
+			background: linear-gradient(to right, #006400, #90EE90);
+            border-radius: 5px;
+            margin-bottom: 10%;
+        }
+        .place {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+            display: flex;
+            align-items:center;
+            color: black;
+            font-size: 1.1em;
+        }
+        .place img {
+            width: 300px;
+            height: 200px;
+            object-fit: scale;
+            margin-right: 20px;
+            border-radius: 3px;
+        }
+        .place span{
+            margin-left: auto;
+            margin-right: min(margin-left);
+            text-align:center;
+        }
+        
+       
+        #error-message {
+            color: #D8000C;
+            background-color: #FFD2D2;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -112,21 +233,44 @@
     </footer>
 
     <script>
-        // Load content
+        const places = {
+            'France': {
+                restaurants: [
+                    {name: 'Le Chateaubriand', image: 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Le_Chateaubriand.jpg'},
+                    {name: 'L\'Arpège', image: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Arp%C3%A8ge.jpg'},
+                    {name: 'La Vague d\'Or', image: 'https://theworldkeys.com/wp-content/uploads/2022/06/La-Vague-dOr-restaurant-Saint-Tropez_theworldkeys_6.webp'}
+                ],
+                sightseeing: [
+                    {name: 'Eiffel Tower', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg/800px-Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg'},
+                    {name: 'Louvre Museum', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Louvre_Museum_Wikimedia_Commons.jpg/1920px-Louvre_Museum_Wikimedia_Commons.jpg'},
+                    {name: 'Palace of Versailles', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Versailles-Chateau-Jardins02.jpg/1280px-Versailles-Chateau-Jardins02.jpg'}
+                ],
+                explore: [
+                    {name: 'Provence lavender fields', image: 'https://images.pexels.com/photos/1166209/pexels-photo-1166209.jpeg'},
+                    {name: 'French Riviera', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/%C3%88ze_und_Cap_Ferrat-Grande_Corniche.jpg/1920px-%C3%88ze_und_Cap_Ferrat-Grande_Corniche.jpg'},
+                    {name: 'Mont Saint-Michel', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Mont-Saint-Michel_vu_du_ciel.jpg/1920px-Mont-Saint-Michel_vu_du_ciel.jpg'}
+                ]
+            }
+           
+            
+
+
+        };
+        // Function to load content dynamically
         function loadContent(hash) {
             const contentDiv = document.getElementById('content');
             
             if (hash === '#Explore') {
-                // Load the Explore content
-                fetch('explore.html')
-                    .then(response => response.text())
-                    .then(data => {
-                        contentDiv.innerHTML = data;
-                    })
-                    .catch(error => {
-                        console.error('Error loading explore.html:', error);
-                        contentDiv.innerHTML = '<p>Failed to load Explore content. Please try again later.</p>';
-                    });
+                contentDiv.innerHTML = `
+                    <h2>Explore Guide</h2>
+                    <div class="autocomplete">
+                        <input id="countryInput" type="text" placeholder="Enter a country">
+                    </div>
+                    <button id="btnFindPlaces" onclick="findPlaces()">Find Places</button>
+                    <div id="error-message"></div>
+                    <div id="results"></div>
+                `;
+                autocomplete(document.getElementById('countryInput'), Object.keys(places));
             } else if (hash === '#home') {
                 contentDiv.innerHTML = `
                     <h2>Welcome To Tek Hub</h2>
@@ -140,9 +284,121 @@
             }
         }
 
-        // Function to fetch news
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click',(e)=>{
+                const target = e.target.getAttribute('href');
+                loadContent(target);
+            });
+        });
+
+        function autocomplete(inp,arr){
+            var currentFocus;
+            inp.addEventListener("input", function(e) {
+                var a, b, i, val = this.value;
+                closeAllLists();
+                if (!val) { return false;}
+                currentFocus = -1;
+                a = document.createElement("DIV");
+                a.setAttribute("id", this.id + "autocomplete-list");
+                a.setAttribute("class", "autocomplete-items");
+                this.parentNode.appendChild(a);
+                for (i = 0; i < arr.length; i++) {
+                    if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                        b = document.createElement("DIV");
+                        b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                        b.innerHTML += arr[i].substr(val.length);
+                        b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                        b.addEventListener("click", function(e) {
+                            inp.value = this.getElementsByTagName("input")[0].value;
+                            closeAllLists();
+                        });
+                        a.appendChild(b);
+                    }
+                }
+            });
+            inp.addEventListener("keydown", function(e) {
+                var x = document.getElementById(this.id + "autocomplete-list");
+                if (x) x = x.getElementsByTagName("div");
+                if (e.keyCode == 40) {
+                    currentFocus++;
+                    addActive(x);
+                } else if (e.keyCode == 38) { 
+                    currentFocus--;
+                    addActive(x);
+                } else if (e.keyCode == 13) {
+                    e.preventDefault();
+                    if (currentFocus > -1) {
+                        if (x) currentFocus.click();
+                    }
+                }
+            });
+            function addActive(x) {
+                if (!x) return false;
+                removeActive(x);
+                if (currentFocus >= x.length) currentFocus = 0;
+                if (currentFocus < 0) currentFocus = (x.length - 1);
+                x[currentFocus].classList.add("autocomplete-active");
+            }
+            function removeActive(x) {
+                for (var i = 0; i < x.length; i++) {
+                    x[i].classList.remove("autocomplete-active");
+                }
+            }
+            function closeAllLists(elmnt) {
+                var x = document.getElementsByClassName("autocomplete-items");
+                for (var i = 0; i < x.length; i++) {
+                    if (elmnt != x[i] && elmnt != inp) {
+                        x[i].parentNode.removeChild(x[i]);
+                    }
+                }
+            }
+            document.addEventListener("click", function (e) {
+                closeAllLists(e.target);
+            });
+        }
+
+        function findPlaces() {
+            const country = document.getElementById('countryInput').value;
+            const resultsDiv = document.getElementById('results');
+            const errorMessageDiv = document.getElementById('error-message');
+            
+            resultsDiv.innerHTML = '';
+            errorMessageDiv.style.display = 'none';
+
+            if (places[country]) {
+                const categories = ['restaurants', 'sightseeing', 'explore'];
+                categories.forEach(category => {
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.className = 'category';
+                    categoryDiv.id = category;
+                    categoryDiv.innerHTML = `<h2>${category.charAt(0).toUpperCase() + category.slice(1)}</h2>`;
+                    places[country][category].forEach(place => {
+                        const placeDiv = document.createElement('div');
+                        placeDiv.className = 'place';
+                        placeDiv.innerHTML = `
+                            <img src="${place.image}" alt="${place.name}">
+                            <span>${place.name}</span>
+                        `;
+                        categoryDiv.appendChild(placeDiv);
+                    });
+                    resultsDiv.appendChild(categoryDiv);
+                });
+            } else {
+                //Empty Input
+                if (!country){
+                    errorMessageDiv.innerHTML = `Sorry, we don't have information for that country yet. Please enter another destination!`;
+                    errorMessageDiv.style.display = 'block';
+                }else{
+                    errorMessageDiv.innerHTML = `Sorry, we don't have information for ${country} yet. We're constantly updating our database with new destinations!`;
+                    errorMessageDiv.style.display = 'block';
+                }
+                
+            }
+        }
+
+        // Function to fetch news (for the home section)
         function fetchNews() {
-            const apiKey = '';
+            const apiKey = ''; // Replace with your News API key
             const url = `https://newsapi.org/v2/top-headlines?category=technology&apiKey=${apiKey}`;
             
             fetch(url)
@@ -179,9 +435,8 @@
             loadContent(location.hash);
         });
 
-        // Load the appropriate content based on the current hash
-        window.addEventListener('load', function() {
-            loadContent(location.hash || '#home'); // Default to home section
+        window.addEventListener('load', () => {
+            loadContent('#home');
         });
     </script>
 </body>
